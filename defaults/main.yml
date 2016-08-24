@@ -1,5 +1,5 @@
 ---
-redis:
+redis_instances:
   - name: default
     port: 6379
     bind_interface: 127.0.0.1

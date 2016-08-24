@@ -2,10 +2,26 @@
 - name: Ensure redis is installed.
   apt: name=redis-server state=installed
 
-- name: Remove default redis-server.service
+- name: Remove default redis.service
   file: path=/etc/systemd/system/redis.service state=absent
 
-- name: Add redis service(s)
-  template: src=redis.service.j2
-            dest=/etc/systemd/system/redis-{{ item }}.service
-            with_items= "{{ redis_names }}"
+- name: Add redis service
+  template:
+    src: redis.service.j2
+    dest: /etc/systemd/system/redis-{{ item.name }}.service
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ redis_instances }}"
+
+- name: Ensure Redis is configured.
+  template:
+    src: redis.conf.j2
+    dest: "/etc/redis/reids-{{ item.name }}.conf"
+    mode: 0644
+  notify: restart redis
+  with_items: "{{ redis_instances }}"
+
+- name: Ensure redis is running and enabled on boot.
+  service: "name=redis-{{ item.name }} state=started enabled=yes"
+  with_items: "{{ redis_instances }}"

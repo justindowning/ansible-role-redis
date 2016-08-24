@@ -1,7 +1,7 @@
 daemonize yes
-pidfile /var/run/redis/{{ redis.name }}.pid
-port {{ redis.port }}
-bind {{ redis.bind_interface }}
+pidfile /var/run/redis/{{ item.name }}.pid
+port {{ item.port }}
+bind {{ item.bind_interface }}
 
 {% if redis_unixsocket %}
 unixsocket {{ redis_unixsocket }}
