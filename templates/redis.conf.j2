@@ -10,7 +10,7 @@ unixsocket {{ redis_unixsocket }}
 timeout {{ redis_timeout }}
 
 loglevel {{ redis_loglevel }}
-logfile {{ redis_logfile }}
+logfile /var/log/redis/redis-{{ item.name }}.log
 
 # To enable logging to the system logger, just set 'syslog-enabled' to yes,
 # and optionally update the other syslog parameters to suit your needs.
