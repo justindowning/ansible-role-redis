@@ -39,6 +39,7 @@ maxmemory-samples {{ redis_maxmemory_samples }}
 appendonly {{ redis_appendonly }}
 appendfsync {{ redis_appendfsync }}
 no-appendfsync-on-rewrite no
+stop-writes-on-bgsave-error no
 
 {% for include in redis_includes %}
 include {{ include }}
