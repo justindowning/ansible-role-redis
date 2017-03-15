@@ -4,8 +4,7 @@
 
 - name: Ensure default redis is stopped
   service: name=redis state=stopped enabled=no
-  register: command_result
-  failed_when: "command_result|failed and 'could not find' not in command_result.msg"
+  ignore_errors: true
 
 - name: Remove default redis.service
   file: path=/etc/systemd/system/redis.service state=absent
@@ -14,8 +13,7 @@
 
 - name: Ensure default redis-server is stopped
   service: name=redis state=stopped enabled=no
-  register: command_result
-  failed_when: "command_result|failed and 'could not find' not in command_result.msg"
+  ignore_errors: true
 
 - name: Remove default redis-server.service
   file: path=/etc/systemd/system/redis-server.service state=absent
